@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Messages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #D4B248;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .source-filter {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    select {
+      padding: 6px 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Messages from Contact Forms</h2>
+
+  <div class="source-filter">
+    <label for="filterSource">Filter by Source: </label>
+    <select id="filterSource" onchange="filterMessages()">
+      <option value="all">All</option>
+      <option value="index">Index Page</option>
+      <option value="contact">Contact Page</option>
+    </select>
+  </div>
+
+  <table id="messagesTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Source</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Messages will be populated here -->
+    </tbody>
+  </table>
+
+  <script>
+    let allMessages = [];
+
+    async function fetchMessages() {
+      try {
+        const res = await fetch('/api/messages');
+        allMessages = await res.json();
+        displayMessages(allMessages);
+      } catch (err) {
+        console.error('Error fetching messages:', err);
+      }
+    }
+
+    function displayMessages(messages) {
+      const tbody = document.querySelector('#messagesTable tbody');
+      tbody.innerHTML = '';
+
+      messages.forEach(msg => {
+        const row = `
+          <tr>
+            <td>${msg.name}</td>
+            <td>${msg.email}</td>
+            <td>${msg.subject}</td>
+            <td>${msg.message}</td>
+            <td>${msg.source || 'N/A'}</td>
+            <td>${new Date(msg.createdAt).toLocaleString()}</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function filterMessages() {
+      const source = document.getElementById('filterSource').value;
+      const filtered = source === 'all'
+        ? allMessages
+        : allMessages.filter(msg => msg.source === source);
+      displayMessages(filtered);
+    }
+
+    fetchMessages();
+  </script>
+</body>
+</html>

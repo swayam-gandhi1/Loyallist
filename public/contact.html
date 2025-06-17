@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    .contact-header {
+      background: #D4B248;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+      gap: 40px;
+    }
+
+    .contact-form,
+    .contact-info {
+      flex: 1;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-form label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact-form button {
+      padding: 12px;
+      background: #D4B248;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: #D4B248;
+    }
+
+    .contact-info .info-block {
+      margin-bottom: 30px;
+    }
+
+    .contact-info .icon {
+      color: #D4B248;
+      margin-right: 10px;
+    }
+
+    .contact-info a {
+      color: #D4B248;
+      text-decoration: none;
+    }
+
+    .map-placeholder iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color:white;
+   
+}
+
+.logo img {
+    height: 50px; /* Adjust logo size */
+}
+
+.navbar {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar li {
+    display: inline-block;
+    position: relative; /* Needed for dropdown positioning */
+}
+
+.navbar a {
+    display: block;
+    color: black;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #c4a12e; /* Lighter blue */
+}
+
+.dropdown {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position the dropdown */
+    background-color: black; /* White background */
+    min-width: 160px; /* Set a minimum width */
+    z-index: 1; /* Sit on top */
+}
+
+.dropdown li {
+    float: none; /* Stack dropdown items vertically */
+}
+
+.dropdown a {
+    color: #D4B248; /* Navy blue text */
+    padding: 12px 16px; /* Padding for dropdown items */
+    text-decoration: none;
+    display: block; /* Make dropdown items block elements */
+}
+
+.dropdown a:hover {
+    background-color: black; /* Light gray on hover */
+}
+
+.navbar li:hover .dropdown {
+    display: block; /* Show dropdown on hover */
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar li {
+        display: block; /* Stack items vertically on small screens */
+        text-align: left; /* Align text to the left */
+    }
+
+    .navbar {
+        text-align: left; /* Align navbar items to the left */
+    }
+
+    
+}
+/* Mobile Navbar Toggle Button */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+}
+
+/* Hide menu on small screens by default */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .navbar {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    background-color:#D4B248;
+  }
+
+  .navbar ul {
+    width: 100%;
+  }
+
+  .navbar li {
+    display: block;
+    width: 100%;
+  }
+
+  .navbar a {
+    padding: 10px 20px;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
+  .dropdown {
+    position: static;
+  }
+
+  .navbar li:hover .dropdown {
+    display: none; /* Disable hover dropdown on mobile */
+  }
+
+  .navbar li.active .dropdown {
+    display: block;
+  }
+}
+
+
+
+
+.header-buttons button {
+      background-color: #D4B248;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .header-buttons button:hover {
+      background-color: #0074d9;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 15px;
+      color: #D4B248;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .modal-content button[type="submit"] {
+      background-color: #D4B248;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    .close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .form {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-buttons {
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .header-buttons button {
+        margin-left: 5px;
+      }
+
+      .dropdown {
+        position: relative;
+        width: 100%;
+        box-shadow: none;
+      }
+
+      .dropdown a {
+        padding-left: 30px;
+      }
+    }
+/* Desktop dropdown hover */
+.navbar li:hover > .dropdown {
+  display: block;
+}
+.icon {
+  font-size: 28px;
+  color: #ffc107; /* Gold/Yellow */
+  margin-bottom: 10px;
+}
+
+/* Default: hide dropdowns */
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color:black;
+  min-width: 160px;
+  z-index: 1;
+  border-radius: 4px;
+  top: 100%;
+  left: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dropdown li {
+  display: block;
+}
+
+.dropdown a {
+  color: #D4B248;
+  padding: 10px 15px;
+}
+
+/* Mobile-friendly override */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
+  .navbar li {
+    width: 100%;
+  }
+
+  .dropdown {
+    position: relative;
+    box-shadow: none;
+  }
+
+  .navbar .has-dropdown.active > .dropdown {
+    display: block;
+  }
+
+  .navbar li:hover > .dropdown {
+    display: none; /* Prevent hover on touch devices */
+  }
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+  </style>
+</head>
+<body>
+
+    <header class="header">
+    <div class="logo">
+      <img src="image/loyalist logo-03.png" alt="Logo" />
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+
+    <nav class="navbar" id="navbar">
+      <ul>
+
+        <li class="has-dropdown" onclick="toggleDropdown(event)">
+          <a href="#">About Us</a>
+          <ul class="dropdown">
+            <li><a href="company.html">Company Profile</a></li>
+            <li><a href="directors.html">Directors</a></li>
+            <li><a href="corporate.html">Corporate Structure</a></li>
+          </ul>
+        </li>
+
+        <li class="has-dropdown" onclick="toggleDropdown(event)">
+          <a href="#">Projects</a>
+        </li>
+
+        <li class="has-dropdown" onclick="toggleDropdown(event)">
+          <a href="#">Investors</a>
+          <ul class="dropdown">
+            <li><a href="statements.html">Statements</a></li>
+            <li><a href="directors.html">MD&A</a></li>
+          </ul>
+        </li>
+
+        <li class="has-dropdown" onclick="toggleDropdown(event)">
+          <a href="#">News & Media</a>
+          <ul class="dropdown">
+            <li><a href="news.html">News</a></li>
+            <li><a href="disclaimers.html">Disclaimers</a></li>
+          </ul>
+        </li>
+
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-buttons">
+    </div>
+  </header>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <div id="login-form" class="form">
+        <h2>Login</h2>
+        <input type="text" placeholder="Username" />
+        <input type="password" placeholder="Password" />
+        <button type="submit">Submit</button>
+      </div>
+
+      <div id="contact-form" class="form">
+        <h2>Get in Touch</h2>
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" />
+        <textarea placeholder="Message"></textarea>
+        <button type="submit">Send</button>
+      </div>
+    </div>
+  </div>
+
+
+  <section class="contact-header">
+    <h1>Contact Us</h1>
+    <p>Have questions? We're here to help. Reach out via the form or directly using the details below.</p>
+  </section>
+
+  <section class="contact-container">
+    <div class="contact-form">
+      <h2>Get In Touch</h2>
+       <form id="contactForm">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <input type="text" name="subject" placeholder="Subject" required />
+          <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <div class="contact-info">
+      <div class="info-block">
+        <h3><i class="fas fa-envelope icon"></i> Email Us</h3>
+        <p>Email us at:</p>
+        <a href="mailto:afenn@loyalist.expl">afenn@loyalist.expl</a>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fas fa-phone icon"></i> Call Us</h3>
+        <p>Business hours:</p>
+        <a href="tel:+16472661270">+1 647 266 1270</a>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fas fa-map-marker-alt icon"></i> Visit Us</h3>
+        <p>Peterson McVicar LLP,<br>110 Yonge Street, Suite 1601, Toronto ON M5C 1T4</p>
+      </div>
+
+      <div class="map-placeholder">
+        <iframe src="https://maps.google.com/maps?q=110%20Yonge%20St,%20Toronto&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                allowfullscreen loading="lazy" title="Company Location"></iframe>
+      </div>
+    </div>
+  </section>
+
+   <script>
+  document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  const formData = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    subject: form.subject.value.trim(),
+    message: form.message.value.trim()
+  };
+
+  try {
+    const res = await fetch('/api/contact/page', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert(data.message || 'Message sent successfully!');
+      form.reset();
+    } else {
+      alert(data.message || 'Something went wrong. Please try again.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Failed to send message. Try again later.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+  }
+});
+
+</script>
+
+</body>
+</html>
