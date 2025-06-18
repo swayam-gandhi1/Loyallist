@@ -204,3 +204,44 @@ let slideIndex = 0;
     });
 
     loadNews();
+
+     
+  document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  const formData = {
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    subject: form.subject.value.trim(),
+    message: form.message.value.trim()
+  };
+
+  try {
+    const res = await fetch('/api/contact/page', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert(data.message || 'Message sent successfully!');
+      form.reset();
+    } else {
+      alert(data.message || 'Something went wrong. Please try again.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Failed to send message. Try again later.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+  }
+});
+
+
