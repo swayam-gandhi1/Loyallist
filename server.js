@@ -35,7 +35,7 @@ const newsRoutes = require('./routes/newsRoutes');
 
 
 app.use('/api', authRoutes);
-app.use('/api', messageRoutes);
+app.use('/api/messages', messageRoutes); // Mount path
 app.use('/api', userRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/pdfs', require('./routes/pdfRoutes'));

@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message');
 
-// Shared handler function for both contact form routes
+// Handler for saving contact form messages
 async function handleContactForm(req, res, source) {
   try {
     const { name, email, subject, message } = req.body;
 
-    // Basic validation
+    // Validation
     if (
       typeof name !== 'string' || name.trim().length < 2 ||
       typeof email !== 'string' || !/.+@.+\..+/.test(email.trim()) ||
@@ -17,32 +17,30 @@ async function handleContactForm(req, res, source) {
       return res.status(400).json({ message: 'Please provide valid inputs for all fields.' });
     }
 
-    // Save the message
     const newMessage = new Message({
       name: name.trim(),
       email: email.trim(),
       subject: subject.trim(),
       message: message.trim(),
-      source // 'index' or 'contact'
+      source
     });
 
     await newMessage.save();
     res.status(201).json({ message: 'Message sent successfully.' });
 
   } catch (err) {
-    console.error(`❌ Error in POST /api/contact/${source}:`, err.message);
+    console.error(`❌ Error in POST /api/messages/contact/${source}:`, err.message);
     res.status(500).json({ message: 'Internal server error.', error: err.message });
   }
 }
 
-// POST route for popup form on index.html
+// ✅ POST routes for all forms
 router.post('/contact/index', (req, res) => handleContactForm(req, res, 'index'));
-
-// POST route for full contact.html page form
 router.post('/contact/page', (req, res) => handleContactForm(req, res, 'contact'));
+router.post('/contact/business', (req, res) => handleContactForm(req, res, 'business'));
 
-// GET all messages (admin dashboard)
-router.get('/messages', async (req, res) => {
+// ✅ GET route to fetch all messages
+router.get('/', async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 });
     res.status(200).json(messages);

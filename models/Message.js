@@ -30,8 +30,8 @@ const messageSchema = new mongoose.Schema({
   },
   source: {
     type: String,
-    enum: ['index', 'contact'],
-    default: 'contact', // Default to contact page if not explicitly set
+    enum: ['index', 'contact', 'business'], // ✅ FIXED: Added 'business'
+    default: 'contact',
     required: true
   },
   createdAt: {

@@ -16,6 +16,19 @@
       margin-bottom: 20px;
     }
 
+    .source-filter {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+
+    select {
+      padding: 6px 10px;
+      font-size: 16px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -42,15 +55,17 @@
       background-color: #f1f1f1;
     }
 
-    .source-filter {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: flex-end;
+    #loading {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      display: none;
     }
 
-    select {
-      padding: 6px 10px;
-      font-size: 16px;
+    #error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -58,13 +73,17 @@
   <h2>Messages from Contact Forms</h2>
 
   <div class="source-filter">
-    <label for="filterSource">Filter by Source: </label>
+    <label for="filterSource"><strong>Filter by Source:</strong></label>
     <select id="filterSource" onchange="filterMessages()">
       <option value="all">All</option>
       <option value="index">Index Page</option>
       <option value="contact">Contact Page</option>
+      <option value="business">Business Page</option>
     </select>
   </div>
+
+  <div id="loading">Loading messages...</div>
+  <div id="error"></div>
 
   <table id="messagesTable">
     <thead>
@@ -86,18 +105,32 @@
     let allMessages = [];
 
     async function fetchMessages() {
+      const loading = document.getElementById('loading');
+      const errorBox = document.getElementById('error');
+      loading.style.display = 'block';
+      errorBox.innerText = '';
+
       try {
         const res = await fetch('/api/messages');
+        if (!res.ok) throw new Error('Failed to fetch messages');
         allMessages = await res.json();
         displayMessages(allMessages);
       } catch (err) {
         console.error('Error fetching messages:', err);
+        errorBox.innerText = 'Unable to load messages. Please try again later.';
+      } finally {
+        loading.style.display = 'none';
       }
     }
 
     function displayMessages(messages) {
       const tbody = document.querySelector('#messagesTable tbody');
       tbody.innerHTML = '';
+
+      if (messages.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No messages found.</td></tr>`;
+        return;
+      }
 
       messages.forEach(msg => {
         const row = `
@@ -122,6 +155,7 @@
       displayMessages(filtered);
     }
 
+    // Initial load
     fetchMessages();
   </script>
 </body>
